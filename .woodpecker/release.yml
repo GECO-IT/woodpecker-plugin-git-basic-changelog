@@ -15,6 +15,21 @@ when:
   - event: tag
 
 steps:
+  # create changelog file
+  - name: create changelog
+    image: ${DOCKER_INTERNAL_REGISTRY}/woodpecker/woodpecker-git-basic-changelog-plugin
+
+  # https://woodpecker-ci.org/plugins/Release
+  - name: ${DOCKER_INTERNAL_REGISTRY}/docker-hub/publish-git-release
+    image: woodpeckerci/plugin-release
+    settings:
+      api_key:
+        from_secret: GIT_ADMIN_TOKEN
+      title:
+        - ${CI_REPO_NAME} Release v${CI_COMMIT_TAG}
+      note:
+        - CHANGELOG.md
+
   # https://woodpecker-ci.org/plugins/Teams%20Notify
   - name: teams-notify
     image: ${DOCKER_INTERNAL_REGISTRY}/woodpecker/woodpecker-teams-notify-plugin
