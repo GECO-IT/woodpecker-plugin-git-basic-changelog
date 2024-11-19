@@ -4,7 +4,7 @@ labels:
   backend: docker
 
 depends_on:
-  - lint
+  - test-linux
 
 matrix:
   plugin:

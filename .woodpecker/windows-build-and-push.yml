@@ -4,7 +4,7 @@ labels:
   backend: local
 
 depends_on:
-  - lint
+  - test-windows
 
 matrix:
   plugin:
