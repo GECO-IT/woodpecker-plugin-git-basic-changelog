@@ -11,7 +11,7 @@ LABEL maintainer="Geco-iT Team <contact@geco-it.fr>" `
 SHELL ["cmd", "/S", "/C"]
 
 # Install Git
-RUN choco install git -y --params '/Symlinks /NoShellIntegration /NoGitLfs /NoOpenSSH' && `
+RUN choco install git -y --params "'/Symlinks /NoShellIntegration /NoGitLfs /NoOpenSSH'" && `
     rmdir /S /Q C:\tmp\cache
 
 COPY git-log.sh /bin/
