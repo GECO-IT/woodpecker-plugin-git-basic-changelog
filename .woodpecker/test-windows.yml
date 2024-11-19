@@ -31,5 +31,5 @@ steps:
       - Import-Module $$env:ChocolateyInstall\helpers\chocolateyProfile.psm1  # load chocolatey helper
       - refreshenv  # refresh path
       - git config --global --add safe.directory $$env:CI_WORKSPACE  # add workspace to an safe git directory
-      - bash -c ./git-log.sh
+      - bash -c ./git-basic-changelog.sh
       - Remove-Item -Path CHANGELOG.md -Force

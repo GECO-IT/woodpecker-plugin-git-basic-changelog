@@ -24,6 +24,5 @@ steps:
       PLUGIN_DEBUG: true
     commands:
       - apk add --no-cache bash git
-      - chmod +x ./git-log.sh
-      - ./git-log.sh
+      - bash -c ./git-basic-changelog.sh
       - rm -f CHANGELOG.md

@@ -71,6 +71,7 @@ generate_changelog()
             # from last tag
             if [ -n "${LAST_TAG}" ]; then
                 say "Last tag: ${LAST_TAG}"
+                say "Generate changelog from '${LAST_TAG}' to last commit..."
                 git log "${LAST_TAG}"..HEAD --no-merges --pretty="- %s" | tee -a CHANGELOG.md &> /dev/null || return 1
 
             # for all commits

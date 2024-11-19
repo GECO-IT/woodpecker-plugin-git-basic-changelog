@@ -14,11 +14,11 @@ SHELL ["cmd", "/S", "/C"]
 RUN choco install git -y --params "'/Symlinks /NoShellIntegration /NoGitLfs /NoOpenSSH'" && `
     rmdir /S /Q C:\tmp\cache
 
-COPY git-log.sh /bin/
+COPY git-basic-changelog.sh /bin/
 
 USER ContainerUser
 
 SHELL ["bash.exe", "-c"]
 
 ENTRYPOINT ["bash.exe"]
-CMD ["C:\\bin\\git-log.sh"]
+CMD ["C:\\bin\\git-basic-changelog.sh"]

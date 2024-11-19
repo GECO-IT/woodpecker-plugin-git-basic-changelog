@@ -3,7 +3,7 @@ name: Git Basic Changelog
 author: Geco-iT Teams
 icon: https://raw.githubusercontent.com/GECO-IT/woodpecker-plugin-git-basic-changelog/main/asset/git.svg
 description: Plugin to generate basic changelog based on git commit message
-tags: [git-log, log]
+tags: [git, log, changelog]
 containerImage: gecoit84/woodpecker-git-basic-changelog-plugin
 containerImageUrl: https://hub.docker.com/r/gecoit84/woodpecker-git-basic-changelog-plugin
 url: https://github.com/GECO-IT/woodpecker-plugin-git-basic-changelog
