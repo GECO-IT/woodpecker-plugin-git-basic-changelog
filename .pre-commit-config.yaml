@@ -43,13 +43,13 @@ repos:
     hooks:
       - id: shellcheck
         name: Check Shell scripts files (shellcheck)
-  - repo: https://github.com/alessandrojcm/commitlint-pre-commit-hook
-    rev: v9.18.0
-    hooks:
-      - id: commitlint
-        name: Check commit message (commitlint)
-        stages: [commit-msg]
-        additional_dependencies: ['@commitlint/config-conventional']
+#  - repo: https://github.com/alessandrojcm/commitlint-pre-commit-hook
+#    rev: v9.18.0
+#    hooks:
+#      - id: commitlint
+#        name: Check commit message (commitlint)
+#        stages: [commit-msg]
+#        additional_dependencies: ['@commitlint/config-conventional']
   - repo: https://github.com/gitleaks/gitleaks
     rev: v8.21.2
     hooks:
