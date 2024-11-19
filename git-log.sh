@@ -12,9 +12,9 @@ INFO_TEXT="Plugin $(basename "${0%.*}")"
 say()
 {
     if [ -n "$2" ]; then
-        printf "🛈\e[32m  ${INFO_TEXT}\e[0m \e[36m[⚒️ %s]\e[0m: %s \n" "$2" "$1"
+        printf "🛈\e[32m ${INFO_TEXT}\e[0m\e[36m[⚒️ %s]\e[0m: %s \n" "$2" "$1"
     else
-        printf "🛈\e[32m  ${INFO_TEXT}\e[0m: %s \n" "$1"
+        printf "🛈\e[32m ${INFO_TEXT}\e[0m: %s \n" "$1"
     fi
 
 return 0
@@ -23,9 +23,9 @@ return 0
 sayE()
 {
     if [ -n "$2" ]; then
-        printf "✘\e[31m  ${INFO_TEXT}\e[0m \e[36m[⚒️ %s]\e[0m: %s \n" "$2" "$1" 1>&2
+        printf "✘\e[31m ${INFO_TEXT}\e[0m\e[36m[⚒️ %s]\e[0m: %s \n" "$2" "$1" 1>&2
     else
-        printf "✘\e[31m  ${INFO_TEXT}\e[0m: %s \n" "$1" 1>&2
+        printf "✘\e[31m ${INFO_TEXT}\e[0m: %s \n" "$1" 1>&2
     fi
 
 exit 1
@@ -34,9 +34,9 @@ exit 1
 sayW()
 {
     if [ -n "$2" ]; then
-        printf "⚠\e[33m  ${INFO_TEXT}\e[0m \e[36m[⚒️ %s]\e[0m: %s \n" "$2" "$1" 1>&2
+        printf "⚠\e[33m ${INFO_TEXT}\e[0m\e[36m[⚒️ %s]\e[0m: %s \n" "$2" "$1" 1>&2
     else
-        printf "⚠\e[33m  ${INFO_TEXT}\e[0m: %s \n" "$1" 1>&2
+        printf "⚠\e[33m ${INFO_TEXT}\e[0m: %s \n" "$1" 1>&2
     fi
 
 return 0
@@ -91,7 +91,6 @@ fi
 
 if ${PLUGIN_DEBUG:-false}; then
     sayW "Debug mode enable... Generated changelog:"
-    echo
     cat CHANGELOG.md
 fi
 
