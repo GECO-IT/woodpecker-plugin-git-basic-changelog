@@ -1,0 +1,4 @@
+hadolint
+markdownlint
+shellcheck
+woodpeckerci

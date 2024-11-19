@@ -1,0 +1,12 @@
+# ---> GECO-iT
+##
+# Geco-it Custom Gitignore
+##
+
+# Remove debian packages
+*.deb
+
+# Editor's swap files
+*~
+*.swp
+
