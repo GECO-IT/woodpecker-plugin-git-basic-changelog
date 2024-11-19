@@ -1,0 +1,86 @@
+---
+labels:
+  platform: linux/amd64
+  backend: docker
+
+depends_on:
+  - lint
+
+matrix:
+  plugin:
+    - git-basic-changelog
+
+when:
+  - event: [pull_request, tag, cron]
+  - event: push
+    branch:
+      - ${CI_REPO_DEFAULT_BRANCH}
+      - renovate/*
+
+steps:
+  - name: security-build
+    image: woodpeckerci/plugin-docker-buildx:5  # no docker-hub proxy privileged woodpecker image
+    settings:
+      dry-run: true
+      repo: ${CI_REPO}
+      dockerfile: Dockerfile
+      context: .
+      output: type=oci,dest=oci/${CI_REPO_NAME},tar=false
+
+  - name: security-scan
+    image: ${DOCKER_INTERNAL_REGISTRY}/docker-hub/aquasec/trivy
+    depends_on: security-build
+    environment:
+      TRIVY_DISABLE_VEX_NOTICE: true
+      TRIVY_EXIT_CODE: 1
+      TRIVY_IGNORE_UNFIXED: true
+      TRIVY_NO_PROGRESS: true
+      TRIVY_SEVERITY: HIGH,CRITICAL
+      TRIVY_TIMEOUT: 15m
+      TRIVY_DB_REPOSITORY: docker.io/aquasec/trivy-db:2
+    commands:
+      - trivy -v
+      - trivy image --input oci/${CI_REPO_NAME}
+
+  ##
+  # We must split amd64/arm64 build because we build windows image without buildx support
+  ##
+  - name: build-and-push (amd64)
+    image: woodpeckerci/plugin-docker-buildx:5  # no docker-hub proxy privileged woodpecker image
+    depends_on: [security-build, security-scan]
+    settings:
+      registry: ${DOCKER_INTERNAL_REGISTRY}
+      repo: ${DOCKER_INTERNAL_REGISTRY}/${CI_REPO_OWNER,,}/woodpecker-${plugin}-plugin
+      username:
+        from_secret: DOCKER_REGISTRY_USERNAME
+      password:
+        from_secret: DOCKER_REGISTRY_PASSWORD
+      dockerfile: Dockerfile
+      context: .
+      platforms: linux/amd64
+      # remove auto manifest created
+      provenance: false
+      tags:
+        - linux-amd64
+    when:
+      event: tag
+
+  - name: build-and-push (arm64)
+    image: woodpeckerci/plugin-docker-buildx:5  # no docker-hub proxy privileged woodpecker image
+    depends_on: [security-build, security-scan]
+    settings:
+      registry: ${DOCKER_INTERNAL_REGISTRY}
+      repo: ${DOCKER_INTERNAL_REGISTRY}/${CI_REPO_OWNER,,}/woodpecker-${plugin}-plugin
+      username:
+        from_secret: DOCKER_REGISTRY_USERNAME
+      password:
+        from_secret: DOCKER_REGISTRY_PASSWORD
+      dockerfile: Dockerfile
+      context: .
+      platforms: linux/arm64
+      # remove auto manifest created
+      provenance: false
+      tags:
+        - linux-arm64
+    when:
+      event: tag

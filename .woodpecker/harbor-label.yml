@@ -1,0 +1,42 @@
+---
+labels:
+  platform: linux/amd64
+  backend: docker
+
+when:
+  event:
+    - tag
+
+depends_on:
+  - linux-build-and-push
+  - windows-build-and-push
+
+skip_clone: true
+
+matrix:
+  include:
+    - image: woodpecker-git-basic-changelog-plugin
+      version: latest
+    - image: woodpecker-git-basic-changelog-plugin
+      version: linux-amd64
+    - image: woodpecker-git-basic-changelog-plugin
+      version: linux-arm64
+    - image: woodpecker-git-basic-changelog-plugin
+      version: windows-ltsc2022-amd64
+
+steps:
+  - name: Add 'docker-hub' label
+    image: ${DOCKER_INTERNAL_REGISTRY}/${CI_REPO_OWNER,,}/woodpecker-harbor-label-plugin
+    pull: true
+    settings:
+      registry:
+        from_secret: DOCKER_REGISTRY
+      username:
+        from_secret: DOCKER_REGISTRY_USERNAME
+      password:
+        from_secret: DOCKER_REGISTRY_PASSWORD
+      debug: true
+      label: docker-hub
+      project: ${CI_REPO_OWNER,,}
+      image: ${image}
+      tag: ${version}

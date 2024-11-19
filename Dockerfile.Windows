@@ -1,0 +1,24 @@
+# syntax = docker/dockerfile:1
+# escape=`
+
+ARG DOCKER_REGISTRY=gecoit84
+FROM ${DOCKER_REGISTRY}/woodpecker-windows-base-chocolatey:latest
+
+LABEL maintainer="Geco-iT Team <contact@geco-it.fr>" `
+      name="geco-it/woodpecker-git-basic-changelog" `
+      vendor="Geco-iT"
+
+SHELL ["cmd", "/S", "/C"]
+
+# Install Git
+RUN choco install git -y --params '/Symlinks /NoShellIntegration /NoGitLfs /NoOpenSSH' && `
+    rmdir /S /Q C:\tmp\cache
+
+COPY git-log.sh /bin/
+
+USER ContainerUser
+
+SHELL ["bash.exe", "-c"]
+
+ENTRYPOINT ["bash.exe"]
+CMD ["C:\\bin\\git-log.sh"]

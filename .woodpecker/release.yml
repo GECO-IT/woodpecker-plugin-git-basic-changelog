@@ -1,0 +1,25 @@
+---
+labels:
+  platform: linux/amd64
+  backend: docker
+
+skip_clone: true
+
+runs_on: [success, failure]
+
+depends_on:
+  - linux-build-and-push
+  - windows-build-and-push
+
+when:
+  - event: tag
+
+steps:
+  # https://woodpecker-ci.org/plugins/Teams%20Notify
+  - name: teams-notify
+    image: ${DOCKER_INTERNAL_REGISTRY}/woodpecker/woodpecker-teams-notify-plugin
+    settings:
+      url:
+        from_secret: TEAMS_GECO_STAFF_GENERAL_WEBHOOK
+    when:
+      - status: [success, failure]
