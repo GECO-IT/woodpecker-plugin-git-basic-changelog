@@ -44,7 +44,7 @@ steps:
 ...
 ```
 
-## Example changelog generated
+## Generated changelog example
 
 ```bash
 $ cat CHANGELOG.md

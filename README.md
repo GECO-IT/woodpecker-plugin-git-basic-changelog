@@ -35,10 +35,6 @@ The following architectures are supported by this image:
 - linux/arm64
 - windows/amd64
 
-## Result
-
-![result](./assets/result.png)
-
 ## License
 
 Released under GPLv3+
@@ -47,7 +43,7 @@ Released under GPLv3+
 
 This plugin was created by Cyril DUCHENOY, CEO of [Geco-iT SARL](http://www.geco-it.fr).
 
-## Example changelog generated
+## Generated changelog example
 
 ```bash
 $ cat CHANGELOG.md
