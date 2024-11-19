@@ -1,0 +1,35 @@
+---
+labels:
+  platform: windows/amd64
+  backend: docker
+
+depends_on:
+  - lint
+
+when:
+  - event: push
+
+workspace:
+  base: C:\src
+
+clone:
+  git:
+    image: woodpeckerci/plugin-git
+    pull: false  # on Windows agent
+    settings:  # for git-basic-changelog-plugin
+      depth: 0
+      tags: true  # if you use event push for this plugin
+
+steps:
+  # create changelog file
+  - name: create changelog
+    image: ${DOCKER_INTERNAL_REGISTRY}/woodpecker/woodpecker-windows-base-chocolatey
+    environment:
+      PLUGIN_DEBUG: true
+    commands:
+      - choco install git -y  # install git with chocolatey
+      - Import-Module $$env:ChocolateyInstall\helpers\chocolateyProfile.psm1  # load chocolatey helper
+      - refreshenv  # refresh path
+      - git config --global --add safe.directory $$env:CI_WORKSPACE  # add workspace to an safe git directory
+      - bash -c ./git-log.sh
+      - Remove-Item -Path CHANGELOG.md -Force

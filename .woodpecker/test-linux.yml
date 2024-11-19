@@ -1,0 +1,29 @@
+---
+labels:
+  platform: linux/amd64
+  backend: docker
+
+depends_on:
+  - lint
+
+when:
+  - event: push
+
+clone:
+  git:
+    image: woodpeckerci/plugin-git
+    settings:  # for git-basic-changelog-plugin
+      depth: 0
+      tags: true  # if you use event push for this plugin
+
+steps:
+  # create changelog file
+  - name: create changelog
+    image: ${DOCKER_INTERNAL_REGISTRY}/docker-hub/library/alpine:3.20
+    environment:
+      PLUGIN_DEBUG: true
+    commands:
+      - apk add --no-cache bash git
+      - chmod +x ./git-log.sh
+      - ./git-log.sh
+      - rm -f CHANGELOG.md
