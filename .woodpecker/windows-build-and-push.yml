@@ -16,7 +16,12 @@ steps:
     environment:
       DOCKER_REGISTRY:
         from_secret: DOCKER_REGISTRY
+      DOCKER_REGISTRY_USERNAME:
+        from_secret: DOCKER_REGISTRY_USERNAME
+      DOCKER_REGISTRY_PASSWORD:
+        from_secret: DOCKER_REGISTRY_PASSWORD
     commands:
+      - echo "$${DOCKER_REGISTRY_PASSWORD}" | docker login $${DOCKER_REGISTRY} --username $${DOCKER_REGISTRY_USERNAME} --password-stdin
       - docker build --file Dockerfile.Windows
                      --build-arg="DOCKER_REGISTRY=$${DOCKER_REGISTRY}/${CI_REPO_OWNER,,}"
                      --tag $${DOCKER_REGISTRY}/${CI_REPO_OWNER,,}/woodpecker-${plugin}-plugin:${CI_COMMIT_SHA:0:10}-windows-ltsc2022-amd64 .

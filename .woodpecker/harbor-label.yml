@@ -10,6 +10,7 @@ when:
 depends_on:
   - linux-build-and-push
   - windows-build-and-push
+  - docker-manifest
 
 skip_clone: true
 
