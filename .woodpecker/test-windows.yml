@@ -7,7 +7,11 @@ depends_on:
   - lint
 
 when:
+  - event: [pull_request, tag, cron]
   - event: push
+    branch:
+      - ${CI_REPO_DEFAULT_BRANCH}
+      - renovate/*
 
 workspace:
   base: C:\src
@@ -33,3 +37,5 @@ steps:
       - git config --global --add safe.directory $$env:CI_WORKSPACE  # add workspace to an safe git directory
       - bash -c ./git-basic-changelog.sh
       - Remove-Item -Path CHANGELOG.md -Force
+    when:
+      event: push

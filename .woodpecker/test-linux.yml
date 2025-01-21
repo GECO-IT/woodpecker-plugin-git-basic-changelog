@@ -7,7 +7,11 @@ depends_on:
   - lint
 
 when:
+  - event: [pull_request, tag, cron]
   - event: push
+    branch:
+      - ${CI_REPO_DEFAULT_BRANCH}
+      - renovate/*
 
 clone:
   git:
@@ -26,3 +30,5 @@ steps:
       - apk add --no-cache bash git
       - bash -c ./git-basic-changelog.sh
       - rm -f CHANGELOG.md
+    when:
+      event: push
