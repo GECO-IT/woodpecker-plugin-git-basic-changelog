@@ -25,8 +25,8 @@ steps:
     image: ${DOCKER_INTERNAL_REGISTRY}/woodpecker/woodpecker-git-basic-changelog-plugin
 
   # https://woodpecker-ci.org/plugins/Release
-  - name: ${DOCKER_INTERNAL_REGISTRY}/docker-hub/publish-git-release
-    image: woodpeckerci/plugin-release
+  - name: publish-git-release
+    image: ${DOCKER_INTERNAL_REGISTRY}/docker-hub/woodpeckerci/plugin-release
     settings:
       api_key:
         from_secret: GIT_ADMIN_TOKEN
@@ -41,5 +41,5 @@ steps:
     settings:
       url:
         from_secret: TEAMS_GECO_STAFF_GENERAL_WEBHOOK
-    when:
-      - status: [success, failure]
+    #when:
+    # - status: [success, failure]
