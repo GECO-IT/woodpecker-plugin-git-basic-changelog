@@ -92,6 +92,9 @@ return 0
 # =========================================================================================================
 # main()
 
+# fix perm in Windows Container
+uname -a | grep -q Windows && git config --global --add safe.directory "${CI_WORKSPACE}"
+
 # changelog headers
 echo -e "# What's Changed\n" > CHANGELOG.md
 
