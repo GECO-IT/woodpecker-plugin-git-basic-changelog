@@ -19,10 +19,16 @@ when:
 
 steps:
   - name: security-build
-    image: woodpeckerci/plugin-docker-buildx:5  # no docker-hub proxy privileged woodpecker image
+    image: ${DOCKER_INTERNAL_REGISTRY}/docker-hub/woodpeckerci/plugin-docker-buildx:5
     settings:
       dry-run: true
       repo: ${CI_REPO}
+      logins:
+        - registry: https://index.docker.io/v1/
+          username:
+            from_secret: DOCKERHUB_USERNAME
+          password:
+            from_secret: DOCKERHUB_PASSWORD
       dockerfile: Dockerfile
       context: .
       output: type=oci,dest=oci/${CI_REPO_NAME},tar=false
@@ -37,7 +43,8 @@ steps:
       TRIVY_NO_PROGRESS: true
       TRIVY_SEVERITY: HIGH,CRITICAL
       TRIVY_TIMEOUT: 15m
-      TRIVY_DB_REPOSITORY: docker.io/aquasec/trivy-db:2
+      #TRIVY_DB_REPOSITORY: docker.io/aquasec/trivy-db:2
+      TRIVY_DB_REPOSITORY: ${DOCKER_INTERNAL_REGISTRY}/docker-hub/aquasec/trivy-db:2
     commands:
       - trivy -v
       - trivy image --input oci/${CI_REPO_NAME}
@@ -46,15 +53,24 @@ steps:
   # We must split amd64/arm64 build because we build windows image without buildx support
   ##
   - name: build-and-push (amd64)
-    image: woodpeckerci/plugin-docker-buildx:5  # no docker-hub proxy privileged woodpecker image
+    image: ${DOCKER_INTERNAL_REGISTRY}/docker-hub/woodpeckerci/plugin-docker-buildx:5
     depends_on: [security-build, security-scan]
     settings:
       registry: ${DOCKER_INTERNAL_REGISTRY}
       repo: ${DOCKER_INTERNAL_REGISTRY}/${CI_REPO_OWNER,,}/woodpecker-${plugin}-plugin
-      username:
-        from_secret: DOCKER_REGISTRY_USERNAME
-      password:
-        from_secret: DOCKER_REGISTRY_PASSWORD
+      cache_images:
+        - ${DOCKER_INTERNAL_REGISTRY}/${CI_REPO_OWNER,,}/woodpecker-${plugin}-plugin
+      logins:
+        - registry: https://index.docker.io/v1/
+          username:
+            from_secret: DOCKERHUB_USERNAME
+          password:
+            from_secret: DOCKERHUB_PASSWORD
+        - registry: ${DOCKER_INTERNAL_REGISTRY}
+          username:
+            from_secret: DOCKER_REGISTRY_USERNAME
+          password:
+            from_secret: DOCKER_REGISTRY_PASSWORD
       dockerfile: Dockerfile
       context: .
       platforms: linux/amd64
@@ -66,15 +82,24 @@ steps:
       event: tag
 
   - name: build-and-push (arm64)
-    image: woodpeckerci/plugin-docker-buildx:5  # no docker-hub proxy privileged woodpecker image
+    image: ${DOCKER_INTERNAL_REGISTRY}/docker-hub/woodpeckerci/plugin-docker-buildx:5
     depends_on: [security-build, security-scan]
     settings:
       registry: ${DOCKER_INTERNAL_REGISTRY}
       repo: ${DOCKER_INTERNAL_REGISTRY}/${CI_REPO_OWNER,,}/woodpecker-${plugin}-plugin
-      username:
-        from_secret: DOCKER_REGISTRY_USERNAME
-      password:
-        from_secret: DOCKER_REGISTRY_PASSWORD
+      cache_images:
+        - ${DOCKER_INTERNAL_REGISTRY}/${CI_REPO_OWNER,,}/woodpecker-${plugin}-plugin
+      logins:
+        - registry: https://index.docker.io/v1/
+          username:
+            from_secret: DOCKERHUB_USERNAME
+          password:
+            from_secret: DOCKERHUB_PASSWORD
+        - registry: ${DOCKER_INTERNAL_REGISTRY}
+          username:
+            from_secret: DOCKER_REGISTRY_USERNAME
+          password:
+            from_secret: DOCKER_REGISTRY_PASSWORD
       dockerfile: Dockerfile
       context: .
       platforms: linux/arm64

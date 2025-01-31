@@ -14,7 +14,7 @@ when:
 
 clone:
   git:
-    image: woodpeckerci/plugin-git
+    image: ${DOCKER_INTERNAL_REGISTRY}/docker-hub/woodpeckerci/plugin-git
     settings:  # for git-basic-changelog-plugin
       depth: 0
       partial: false
