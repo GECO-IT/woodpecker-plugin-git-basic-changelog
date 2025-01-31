@@ -13,7 +13,7 @@ when:
   - event: tag
 
 clone:
-  git:
+  - name: clone
     image: ${DOCKER_INTERNAL_REGISTRY}/docker-hub/woodpeckerci/plugin-git
     settings:  # for git-basic-changelog-plugin
       depth: 0

@@ -13,13 +13,9 @@ when:
       - ${CI_REPO_DEFAULT_BRANCH}
       - renovate/*
 
-workspace:
-  base: C:\src
-
 clone:
-  git:
-    image: woodpeckerci/plugin-git
-    pull: false  # on Windows agent
+  - name: clone
+    image: ${DOCKER_INTERNAL_REGISTRY}/docker-hub/gecoit84/woodpecker-git-plugin
     settings:  # for git-basic-changelog-plugin
       depth: 0
       tags: true  # if you use event push for this plugin
