@@ -1,5 +1,5 @@
 # syntax = docker/dockerfile:1
-FROM alpine:3.20
+FROM alpine:3.21
 
 LABEL maintainer="Geco-iT Team <contact@geco-it.fr>" \
       name="geco-it/woodpecker-git-basic-changelog-plugin" \

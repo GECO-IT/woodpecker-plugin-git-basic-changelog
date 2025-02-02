@@ -13,13 +13,13 @@ when:
 steps:
   # https://gitlab.com/pipeline-components/hadolint
   - name: lint-dockerfile
-    image: ${DOCKER_INTERNAL_REGISTRY}/docker-hub/pipelinecomponents/hadolint:0.26.4
+    image: ${DOCKER_INTERNAL_REGISTRY}/docker-hub/pipelinecomponents/hadolint:0.27.1
     commands:
       - find . -name .git -type d -prune -o -type f -iname dockerfile* -print0 | xargs -0 -r -n1 hadolint
 
   # https://gitlab.com/pipeline-components/shellcheck
   - name: lint-shell
-    image: ${DOCKER_INTERNAL_REGISTRY}/docker-hub/pipelinecomponents/shellcheck:0.12.12
+    image: ${DOCKER_INTERNAL_REGISTRY}/docker-hub/pipelinecomponents/shellcheck:0.13.0
     commands:
       - find . -name .git -type d -prune -o -type f -name \*.sh -print0 | xargs -0 -r -n1 shellcheck
       # remove all info check (quote,...)
@@ -27,12 +27,12 @@ steps:
 
   # https://github.com/DavidAnson/markdownlint
   - name: lint-markdown
-    image: ${DOCKER_INTERNAL_REGISTRY}/docker-hub/davidanson/markdownlint-cli2:v0.14.0
+    image: ${DOCKER_INTERNAL_REGISTRY}/docker-hub/davidanson/markdownlint-cli2:v0.17.2
     commands:
       - "markdownlint-cli2 *.{md,markdown}"
 
   # https://gitlab.com/pipeline-components/yamllint
   - name: lint-yaml
-    image: ${DOCKER_INTERNAL_REGISTRY}/docker-hub/pipelinecomponents/yamllint:0.32.1
+    image: ${DOCKER_INTERNAL_REGISTRY}/docker-hub/pipelinecomponents/yamllint:0.33.0
     commands:
       - yamllint --strict -f colored .
