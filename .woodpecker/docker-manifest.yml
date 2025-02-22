@@ -17,7 +17,7 @@ matrix:
 
 steps:
   - name: add manifest Windows/Linux
-    image: ${DOCKER_INTERNAL_REGISTRY}/docker-hub/docker:27-cli
+    image: ${DOCKER_INTERNAL_REGISTRY}/docker-hub/docker:28-cli
     environment:
       DOCKER_REGISTRY:
         from_secret: DOCKER_REGISTRY
