@@ -96,7 +96,7 @@ return 0
 uname -a | grep -q Windows && git config --global --add safe.directory "${CI_WORKSPACE}"
 
 # changelog headers
-echo -e "# What's Changed\n" > CHANGELOG.md
+echo -e "# What Changed\n" > CHANGELOG.md
 
 generate_changelog || sayE "Git changelog generated with error! 💣"
 
