@@ -59,7 +59,7 @@ steps:
       registry: ${DOCKER_INTERNAL_REGISTRY}
       repo: ${DOCKER_INTERNAL_REGISTRY}/${CI_REPO_OWNER,,}/woodpecker-${plugin}-plugin
       cache_images:
-        - ${DOCKER_INTERNAL_REGISTRY}/${CI_REPO_OWNER,,}/woodpecker-${plugin}-plugin
+        - ${DOCKER_INTERNAL_REGISTRY}/${CI_REPO_OWNER,,}/woodpecker-${plugin}-plugin:cache-amd64
       logins:
         - registry: https://index.docker.io/v1/
           username:
@@ -88,7 +88,7 @@ steps:
       registry: ${DOCKER_INTERNAL_REGISTRY}
       repo: ${DOCKER_INTERNAL_REGISTRY}/${CI_REPO_OWNER,,}/woodpecker-${plugin}-plugin
       cache_images:
-        - ${DOCKER_INTERNAL_REGISTRY}/${CI_REPO_OWNER,,}/woodpecker-${plugin}-plugin
+        - ${DOCKER_INTERNAL_REGISTRY}/${CI_REPO_OWNER,,}/woodpecker-${plugin}-plugin:cache-arm64
       logins:
         - registry: https://index.docker.io/v1/
           username:
