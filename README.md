@@ -4,6 +4,7 @@
 [![issues](https://git.geco-it.net/woodpecker/plugin-git-basic-changelog.git/badges/issues/open.svg?logo=forgejo&color=red)](/woodpecker/plugin-git-basic-changelog/issues?state=open)
 [![pulls](https://git.geco-it.net/woodpecker/plugin-git-basic-changelog.git/badges/pulls/open.svg?logo=forgejo)](/woodpecker/plugin-git-basic-changelog/pulls?state=open)
 [![release](https://git.geco-it.net/woodpecker/plugin-git-basic-changelog.git/badges/release.svg?logo=forgejo)](/woodpecker/plugin-git-basic-changelog/releases)
+[![Open-in-Coder](https://img.shields.io/badge/Open_in_Coder-purple?logo=coder)](https://coder.geco-it.net/templates/coder/docker-debian-base/workspace?mode=manual&param.git_repo=git@git.lan.geco-it.net:woodpecker/plugin-git-basic-changelog.git)
 [![license](https://img.shields.io/badge/License-GPLv3-blue)](./LICENSE)
 [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit)](https://github.com/pre-commit/pre-commit)
 
