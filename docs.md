@@ -31,7 +31,6 @@ clone:
     pull: false  # on Windows agent
     settings:  # for git-basic-changelog-plugin
       depth: 0
-      partial: false
       tags: true  # if you use event push for this plugin
 
 steps:
@@ -48,7 +47,7 @@ steps:
 
 ```bash
 $ cat CHANGELOG.md
-# What's Changed
+# What Changed
 
 - test new woodpecker windows docker run - v0.153
 - test new woodpecker windows docker run - v0.152

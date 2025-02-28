@@ -1,4 +1,6 @@
+buildx
 hadolint
+linux
 markdownlint
 shellcheck
 woodpeckerci

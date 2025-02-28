@@ -47,7 +47,7 @@ This plugin was created by Cyril DUCHENOY, CEO of [Geco-iT SARL](http://www.geco
 
 ```bash
 $ cat CHANGELOG.md
-# What's Changed
+# What Changed
 
 - test new woodpecker windows docker run - v0.153
 - test new woodpecker windows docker run - v0.152
