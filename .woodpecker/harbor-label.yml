@@ -18,11 +18,7 @@ matrix:
     - image: woodpecker-git-basic-changelog-plugin
       version: latest
     - image: woodpecker-git-basic-changelog-plugin
-      version: linux-amd64
-    - image: woodpecker-git-basic-changelog-plugin
-      version: linux-arm64
-    - image: woodpecker-git-basic-changelog-plugin
-      version: windows-ltsc2022-amd64
+      version: windows-ltsc2022
 
 steps:
   - name: Add 'docker-hub' label

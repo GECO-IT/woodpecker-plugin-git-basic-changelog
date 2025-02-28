@@ -56,4 +56,6 @@ $ cat CHANGELOG.md
 _**Compare**_: [1.2411.4...1.2411.5](https://...)
 ```
 
+- Usage with `plugin-release`
+
 ![changelog](./asset/changelog_git_release.png)

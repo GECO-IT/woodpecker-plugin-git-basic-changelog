@@ -4,6 +4,7 @@ labels:
   backend: local
 
 depends_on:
+  - test-linux.yml
   - test-windows
 
 matrix:
@@ -45,15 +46,19 @@ steps:
       - 'docker image tag $${DOCKER_REGISTRY}/${CI_REPO_OWNER,,}/woodpecker-${plugin}-plugin:${CI_COMMIT_SHA:0:10}-windows-ltsc2022
                          $${DOCKER_REGISTRY}/${CI_REPO_OWNER,,}/woodpecker-${plugin}-plugin:${CI_COMMIT_TAG}-windows-ltsc2022'
 
+      - 'docker image tag $${DOCKER_REGISTRY}/${CI_REPO_OWNER,,}/woodpecker-${plugin}-plugin:${CI_COMMIT_SHA:0:10}-windows-ltsc2022
+                         $${DOCKER_REGISTRY}/${CI_REPO_OWNER,,}/woodpecker-${plugin}-plugin:windows-ltsc2022'
+
       # push on registry
       - docker push $${DOCKER_REGISTRY}/${CI_REPO_OWNER,,}/woodpecker-${plugin}-plugin:${CI_COMMIT_TAG}-windows-ltsc2022
+      - docker push $${DOCKER_REGISTRY}/${CI_REPO_OWNER,,}/woodpecker-${plugin}-plugin:windows-ltsc2022
 
       - 'docker buildx imagetools create --append --tag
                $${DOCKER_REGISTRY}/${CI_REPO_OWNER,,}/woodpecker-${plugin}-plugin:${CI_COMMIT_TAG}
-               $${DOCKER_REGISTRY}/${CI_REPO_OWNER,,}/woodpecker-${plugin}-plugin:${CI_COMMIT_TAG}-windows-ltsc2022'
+               $${DOCKER_REGISTRY}/${CI_REPO_OWNER,,}/woodpecker-${plugin}-plugin:windows-ltsc2022'
       - 'docker buildx imagetools create --append --tag
                $${DOCKER_REGISTRY}/${CI_REPO_OWNER,,}/woodpecker-${plugin}-plugin:latest
-               $${DOCKER_REGISTRY}/${CI_REPO_OWNER,,}/woodpecker-${plugin}-plugin:${CI_COMMIT_TAG}-windows-ltsc2022'
+               $${DOCKER_REGISTRY}/${CI_REPO_OWNER,,}/woodpecker-${plugin}-plugin:windows-ltsc2022'
     when:
       event: tag
 
