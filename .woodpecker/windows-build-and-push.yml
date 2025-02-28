@@ -10,23 +10,23 @@ matrix:
   plugin:
     - git-basic-changelog
 
+when:
+  - event: tag
+  - event: push
+    branch:
+      - ${CI_REPO_DEFAULT_BRANCH}
+      - renovate/*
+
 steps:
   - name: build
     image: bash.exe
     environment:
       DOCKER_REGISTRY:
         from_secret: DOCKER_REGISTRY
-      DOCKER_REGISTRY_USERNAME:
-        from_secret: DOCKER_REGISTRY_USERNAME
-      DOCKER_REGISTRY_PASSWORD:
-        from_secret: DOCKER_REGISTRY_PASSWORD
     commands:
-      - echo "$${DOCKER_REGISTRY_PASSWORD}" | docker login $${DOCKER_REGISTRY} --username $${DOCKER_REGISTRY_USERNAME} --password-stdin
-      - docker build --file Dockerfile.Windows
-                     --build-arg="DOCKER_REGISTRY=$${DOCKER_REGISTRY}/${CI_REPO_OWNER,,}"
-                     --tag $${DOCKER_REGISTRY}/${CI_REPO_OWNER,,}/woodpecker-${plugin}-plugin:${CI_COMMIT_SHA:0:10}-windows-ltsc2022-amd64 .
-    when:
-      event: [tag, push]
+      - 'docker build --file Dockerfile.Windows
+               --build-arg="DOCKER_REGISTRY=$${DOCKER_REGISTRY}/${CI_REPO_OWNER,,}"
+               --tag $${DOCKER_REGISTRY}/${CI_REPO_OWNER,,}/woodpecker-${plugin}-plugin:${CI_COMMIT_SHA:0:10}-windows-ltsc2022 .'
 
   - name: push
     image: bash.exe
@@ -38,10 +38,22 @@ steps:
       DOCKER_REGISTRY_PASSWORD:
         from_secret: DOCKER_REGISTRY_PASSWORD
     commands:
+      # registry login
       - echo "$${DOCKER_REGISTRY_PASSWORD}" | docker login $${DOCKER_REGISTRY} --username $${DOCKER_REGISTRY_USERNAME} --password-stdin
-      - docker image tag $${DOCKER_REGISTRY}/${CI_REPO_OWNER,,}/woodpecker-${plugin}-plugin:${CI_COMMIT_SHA:0:10}-windows-ltsc2022-amd64
-                         $${DOCKER_REGISTRY}/${CI_REPO_OWNER,,}/woodpecker-${plugin}-plugin:windows-ltsc2022-amd64
-      - docker push $${DOCKER_REGISTRY}/${CI_REPO_OWNER,,}/woodpecker-${plugin}-plugin:windows-ltsc2022-amd64
+
+      # add container tag
+      - 'docker image tag $${DOCKER_REGISTRY}/${CI_REPO_OWNER,,}/woodpecker-${plugin}-plugin:${CI_COMMIT_SHA:0:10}-windows-ltsc2022
+                         $${DOCKER_REGISTRY}/${CI_REPO_OWNER,,}/woodpecker-${plugin}-plugin:${CI_COMMIT_TAG}-windows-ltsc2022'
+
+      # push on registry
+      - docker push $${DOCKER_REGISTRY}/${CI_REPO_OWNER,,}/woodpecker-${plugin}-plugin:${CI_COMMIT_TAG}-windows-ltsc2022
+
+      - 'docker buildx imagetools create --append --tag
+               $${DOCKER_REGISTRY}/${CI_REPO_OWNER,,}/woodpecker-${plugin}-plugin:${CI_COMMIT_TAG}
+               $${DOCKER_REGISTRY}/${CI_REPO_OWNER,,}/woodpecker-${plugin}-plugin:${CI_COMMIT_TAG}-windows-ltsc2022'
+      - 'docker buildx imagetools create --append --tag
+               $${DOCKER_REGISTRY}/${CI_REPO_OWNER,,}/woodpecker-${plugin}-plugin:latest
+               $${DOCKER_REGISTRY}/${CI_REPO_OWNER,,}/woodpecker-${plugin}-plugin:${CI_COMMIT_TAG}-windows-ltsc2022'
     when:
       event: tag
 
@@ -54,5 +66,3 @@ steps:
       - docker image rm $(docker images --filter "dangling=true" -q --no-trunc) 2> /dev/null || true
       - echo "Remove Woodpecker volumes..."
       - docker volume rm $(docker volume ls --filter name=^wp_* --filter dangling=true  -q) 2> /dev/null || true
-    when:
-      event: [push, tag]
