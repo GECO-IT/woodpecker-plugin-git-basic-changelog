@@ -5,6 +5,7 @@
 [![pulls](https://git.geco-it.net/woodpecker/plugin-git-basic-changelog.git/badges/pulls/open.svg?logo=forgejo)](/woodpecker/plugin-git-basic-changelog/pulls?state=open)
 [![release](https://git.geco-it.net/woodpecker/plugin-git-basic-changelog.git/badges/release.svg?logo=forgejo)](/woodpecker/plugin-git-basic-changelog/releases)
 [![license](https://img.shields.io/badge/License-GPLv3-blue)](./LICENSE)
+[![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit)](https://github.com/pre-commit/pre-commit)
 
 > [!WARNING]
 > Read-only source code mirror of Geco-iT Open Source projects.
