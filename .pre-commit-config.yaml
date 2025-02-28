@@ -67,9 +67,9 @@ repos:
         pass_filenames: false
         # wrun generate github trufflesecurity trufflehog
         args: [
-          --url, linux/amd64=https://github.com/trufflesecurity/trufflehog/releases/download/v3.88.13/trufflehog_3.88.13_linux_amd64.tar.gz,     # renovate: datasource=github-releases depName=trufflesecurity/trufflehog
-          --url, linux/arm64=https://github.com/trufflesecurity/trufflehog/releases/download/v3.88.13/trufflehog_3.88.13_linux_arm64.tar.gz,     # renovate: datasource=github-releases depName=trufflesecurity/trufflehog
-          --url, windows/amd64=https://github.com/trufflesecurity/trufflehog/releases/download/v3.88.13/trufflehog_3.88.13_windows_amd64.tar.gz, # renovate: datasource=github-releases depName=trufflesecurity/trufflehog
+          --url, linux/amd64=https://github.com/trufflesecurity/trufflehog/releases/download/v3.88.14/trufflehog_3.88.14_linux_amd64.tar.gz,     # renovate: datasource=github-releases depName=trufflesecurity/trufflehog
+          --url, linux/arm64=https://github.com/trufflesecurity/trufflehog/releases/download/v3.88.14/trufflehog_3.88.14_linux_arm64.tar.gz,     # renovate: datasource=github-releases depName=trufflesecurity/trufflehog
+          --url, windows/amd64=https://github.com/trufflesecurity/trufflehog/releases/download/v3.88.14/trufflehog_3.88.14_windows_amd64.tar.gz, # renovate: datasource=github-releases depName=trufflesecurity/trufflehog
           --archive-exe-path, linux/amd64=trufflehog,
           --archive-exe-path, linux/arm64=trufflehog,
           --archive-exe-path, windows/amd64=trufflehog.exe,
@@ -84,9 +84,9 @@ repos:
         pass_filenames: false
         # wrun generate github woodpecker-ci woodpecker
         args: [
-          --url, linux/amd64=https://github.com/woodpecker-ci/woodpecker/releases/download/v3.0.1/woodpecker-cli_linux_amd64.tar.gz,  # renovate: datasource=github-releases depName=woodpecker-ci/woodpecker
-          --url, linux/arm64=https://github.com/woodpecker-ci/woodpecker/releases/download/v3.0.1/woodpecker-cli_linux_arm64.tar.gz,  # renovate: datasource=github-releases depName=woodpecker-ci/woodpecker
-          --url, windows/amd64=https://github.com/woodpecker-ci/woodpecker/releases/download/v3.0.1/woodpecker-cli_windows_amd64.zip, # renovate: datasource=github-releases depName=woodpecker-ci/woodpecker
+          --url, linux/amd64=https://github.com/woodpecker-ci/woodpecker/releases/download/v3.2.0/woodpecker-cli_linux_amd64.tar.gz,  # renovate: datasource=github-releases depName=woodpecker-ci/woodpecker
+          --url, linux/arm64=https://github.com/woodpecker-ci/woodpecker/releases/download/v3.2.0/woodpecker-cli_linux_arm64.tar.gz,  # renovate: datasource=github-releases depName=woodpecker-ci/woodpecker
+          --url, windows/amd64=https://github.com/woodpecker-ci/woodpecker/releases/download/v3.2.0/woodpecker-cli_windows_amd64.zip, # renovate: datasource=github-releases depName=woodpecker-ci/woodpecker
           --archive-exe-path, linux/amd64=woodpecker-cli,
           --archive-exe-path, linux/arm64=woodpecker-cli,
           --archive-exe-path, windows/amd64=woodpecker-cli.exe,
