@@ -5,6 +5,9 @@
 # update:
 # > pre-commit autoupdate
 ##
+
+# yamllint disable rule:line-length
+
 repos:
   - repo: meta
     hooks:
@@ -55,18 +58,33 @@ repos:
     hooks:
       - id: gitleaks
         name: Detect hardcoded secrets (Gitleaks)
-  - repo: local
+  - repo: https://github.com/scop/wrun
+    rev: v0.4.0
     hooks:
-      - id: trufflehog
+      - id: wrun
         name: Detect hardcoded secrets (TruffleHog)
-        entry: trufflehog --no-update git file://. --since-commit HEAD --results=verified --fail
-        language: golang
+        #info command: trufflehog --no-update git file://. --since-commit HEAD --results=verified --fail
         pass_filenames: false
-  - repo: local
+        args: [
+          --url, linux/amd64=https://github.com/trufflesecurity/trufflehog/releases/download/v3.88.13/trufflehog_3.88.13_linux_amd64.tar.gz,     # renovate: datasource=github-releases depName=trufflesecurity/trufflehog
+          --url, windows/amd64=https://github.com/trufflesecurity/trufflehog/releases/download/v3.88.13/trufflehog_3.88.13_windows_amd64.tar.gz, # renovate: datasource=github-releases depName=trufflesecurity/trufflehog
+          --archive-exe-path, linux/amd64=trufflehog,
+          --archive-exe-path, windows/amd64=trufflehog.exe,
+          --, --no-update, git, file://., --since-commit, HEAD, --results=verified, --fail,
+        ]
+  - repo: https://github.com/scop/wrun
+    rev: v0.4.0
     hooks:
-      - id: woodpecker-lint
+      - id: wrun
         name: Check Woodpecker CI files (woodpecker-cli)
-        entry: woodpecker-cli lint
-        language: golang
-        types: [yaml]
-        files: ^.woodpecker/
+        #info command: woodpecker-cli --disable-update-check --pretty lint --strict --plugins-trusted-clone ...
+        pass_filenames: false
+        args: [
+          --url, linux/amd64=https://github.com/woodpecker-ci/woodpecker/releases/download/v3.0.1/woodpecker-cli_linux_amd64.tar.gz,  # renovate: datasource=github-releases depName=woodpecker-ci/woodpecker
+          --url, windows/amd64=https://github.com/woodpecker-ci/woodpecker/releases/download/v3.0.1/woodpecker-cli_windows_amd64.zip, # renovate: datasource=github-releases depName=woodpecker-ci/woodpecker
+          --archive-exe-path, linux/amd64=woodpecker-cli,
+          --archive-exe-path, windows/amd64=woodpecker-cli.exe,
+          --, --disable-update-check, --pretty, lint, --strict,
+          --plugins-trusted-clone, '${DOCKER_INTERNAL_REGISTRY}/docker-hub/woodpeckerci/plugin-git',
+          --plugins-trusted-clone, '${DOCKER_INTERNAL_REGISTRY}/docker-hub/gecoit84/woodpecker-git-plugin',
+        ]
