@@ -4,7 +4,7 @@ labels:
   backend: local
 
 depends_on:
-  - linux-build-and-push.yml
+  - linux-build-and-push
   - test-windows
 
 matrix:
