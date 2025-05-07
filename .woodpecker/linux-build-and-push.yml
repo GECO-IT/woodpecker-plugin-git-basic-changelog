@@ -19,7 +19,7 @@ when:
 
 steps:
   - name: security-build
-    image: ${DOCKER_INTERNAL_REGISTRY}/docker-hub/woodpeckerci/plugin-docker-buildx:5
+    image: ${DOCKER_INTERNAL_REGISTRY}/docker-hub/woodpeckerci/plugin-docker-buildx:6
     settings:
       dry-run: true
       repo: ${CI_REPO}
@@ -50,7 +50,7 @@ steps:
       - trivy image --input oci/${CI_REPO_NAME}
 
   - name: build-and-push
-    image: ${DOCKER_INTERNAL_REGISTRY}/docker-hub/woodpeckerci/plugin-docker-buildx:5
+    image: ${DOCKER_INTERNAL_REGISTRY}/docker-hub/woodpeckerci/plugin-docker-buildx:6
     depends_on: [security-build, security-scan]
     settings:
       registry: ${DOCKER_INTERNAL_REGISTRY}
