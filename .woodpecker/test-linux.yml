@@ -23,7 +23,7 @@ clone:
 steps:
   # create changelog file
   - name: create changelog
-    image: ${DOCKER_INTERNAL_REGISTRY}/docker-hub/library/alpine:3.21
+    image: ${DOCKER_INTERNAL_REGISTRY}/docker-hub/library/alpine:3.22
     environment:
       PLUGIN_DEBUG: true
     commands:
