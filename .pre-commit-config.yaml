@@ -27,17 +27,17 @@ repos:
       - id: trailing-whitespace
         name: Trim trailing whitespace (pre-commit)
   - repo: https://github.com/DavidAnson/markdownlint-cli2
-    rev: v0.17.2
+    rev: v0.23.2
     hooks:
       - id: markdownlint-cli2
         name: Check markdown (markdownlint-cli2)
   - repo: https://github.com/hadolint/hadolint
-    rev: v2.13.1-beta
+    rev: v2.15.1
     hooks:
       - id: hadolint
         name: Check Dockerfiles (hadolint)
   - repo: https://github.com/adrienverge/yamllint
-    rev: v1.37.1
+    rev: v1.38.0
     hooks:
       - id: yamllint
         name: Check yaml (yamllint)
@@ -54,7 +54,7 @@ repos:
 #        stages: [commit-msg]
 #        additional_dependencies: ['@commitlint/config-conventional']
   - repo: https://github.com/gitleaks/gitleaks
-    rev: v8.25.1
+    rev: v8.30.1
     hooks:
       - id: gitleaks
         name: Detect hardcoded secrets (Gitleaks)
